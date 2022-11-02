@@ -1,0 +1,26 @@
+local PowerService = {}
+
+local HTTPS = game:GetService("HttpService")
+local SD_ServerManager = "<Secert Webhook Token>"
+
+local Messages_YML = require(script.Parent["<Secert>"])
+StartData = HTTPS:JSONEncode(Messages_YML.StartServerMessage)
+StopData = HTTPS:JSONEncode(Messages_YML.StopServerMessage)
+
+--DM = require(script.Parent["DataManager.engine"])
+Loader = require(script.Parent["Loader.sys"])
+
+function PowerService:Start(EnCode)
+	if EnCode == "<Secert Token>" then
+		HTTPS:PostAsync(SD_ServerManager, StartData)
+		Loader:Load("<Secert Token>")
+	end
+end
+
+function Stop()
+	HTTPS:PostAsync(SD_ServerManager, StopData)
+end
+
+game.Close:Connect(Stop)
+
+return PowerService
