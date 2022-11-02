@@ -1,0 +1,45 @@
+local Plr = game:GetService("Players")
+local SPlr = game:GetService("StarterPlayer")
+
+local KnownPlayers = {}
+
+function LoadClientSystems(player)
+	local STS = <Clone STS>
+	--local RD = <Clone RenderDistance>
+	
+	table.insert(KnownPlayers, player.Name)
+	
+  STS.Parent = Player Character
+	--RD.Parent = Player Character
+	
+	STS.Enabled = true
+	--RD.Enabled = true
+end
+
+function LoadDiedPlayer(player)
+	local STS = <Clone STS>
+	--local RD = <Clone RenderDistance>
+	
+  STS.Parent = Player Character
+	--RD.Parent = Player Character
+	
+	STS.Enabled = true
+	--RD.Enabled = true
+end
+
+Plr.ChildAdded:Connect(LoadClientSystems)
+
+workspace.DescendantAdded:Connect(function(player)
+	if table.find(KnownPlayers, player.Name) then
+		LoadDiedPlayer(player)
+	end
+end)
+
+wait(2)
+local LoadedPlr = Plr:GetDescendants()
+
+for _, Detected in pairs(LoadedPlr) do
+	if Detected:IsA("Player") then
+		LoadClientSystems(Detected)
+	end
+end
