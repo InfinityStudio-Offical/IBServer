@@ -1,0 +1,13 @@
+[1.0.2 PR-3]
+
+local IS = game:GetService("InsertService")
+
+Product_Loader = 11219593893
+local Loader = IS:LoadAsset(Product_Loader)
+Loader:FindFirstChild("InfinityEngine").Parent = game:GetService("ServerScriptService")
+Loader:Destroy()
+
+local Starter = require(game:GetService("ServerScriptService"):WaitForChild("InfinityEngine"):WaitForChild("PowerService.engine"))
+local Tokens = require(game:GetService("ServerScriptService"):WaitForChild("InfinityEngine"):WaitForChild("Tokens.ymal"))
+
+Starter:Start(Tokens.Starter)
