@@ -1,0 +1,51 @@
+local Loader = {}
+
+local SD = require(script:WaitForChild(<Secert>))
+local RS = game:GetService("RunService")
+
+local IBSI = game.Workspace:WaitForChild("IBServer")
+local IBSI_Config = IBSI:WaitForChild("Config")
+
+local Err = require(script.Parent:WaitForChild("<Secert>"))
+
+function Unpack()
+	IBSI:Destroy()
+	print("Successfully loaded all system requriement.")
+	
+	workspace:WaitForChild("IBSMultiplayer"):WaitForChild("Generators"):WaitForChild("Generator0").Enabled = true
+	script.Parent:WaitForChild("LoadClientSys.csys").Enabled = true
+end
+
+function Loader:Load(EnCode)
+	if EnCode == "<Secert Token>" then
+		if IBSI_Config.DM.DeveloperMode.Value == false then
+			if not RS:IsStudio() then
+				--SD.RenderDistance(IBSI_Config.Systems.RenderDistance.Value)
+				SD.STS(IBSI_Config.Systems.STS.Value)
+				SD.ServerFolder()
+				SD.ServerDWorld()
+				SD.GeneratorFolder()
+				SD.Generator0()
+				SD.Lightings()
+				Unpack()
+			else
+				warn(Err.Error_102_Studio)
+				script.Parent:Destroy()
+			end
+		else
+			if IBSI_Config.DM.API.Value == "<Secert>" then
+				--SD.RenderDistance(IBSI_Config.Systems.RenderDistance.Value)
+				SD.STS(IBSI_Config.Systems.STS.Value)
+				SD.ServerFolder()
+				SD.ServerDWorld()
+				SD.GeneratorFolder()
+				SD.Generator0()
+				Unpack()
+			else
+				warn(Err.Error_102_Developer)
+			end
+		end
+	end
+end
+
+return Loader
